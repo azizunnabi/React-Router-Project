@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Users from "../components/Users";
+import Spinner from "../components/Spinner";
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -18,32 +20,11 @@ const Home = () => {
   }, []);
   console.log("last line");
   return (
-    <div className="max-w-screen-lg mx-auto">
+    <div className="max-w-screen-lg mx-auto mt-5">
       {loader ? (
-        "Loading..."
+        <Spinner />
       ) : users.length > 0 ? (
-        <table className="w-full my-10">
-          <thead>
-            <tr>
-              <th className="border p-2 text-left uppercase">name</th>
-              <th className="border p-2 text-left uppercase">username</th>
-              <th className="border p-2 text-left uppercase">email</th>
-              <th className="border p-2 text-left uppercase">website</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => {
-              return (
-                <tr className="odd:bg-indigo-50">
-                  <td className="border p-4">{user.name}</td>
-                  <td className="border p-4">{user.username}</td>
-                  <td className="border p-4">{user.email}</td>
-                  <td className="border p-4">{user.website}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <Users usersList={users} />
       ) : (
         "No users"
       )}
