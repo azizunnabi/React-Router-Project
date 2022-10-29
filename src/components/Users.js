@@ -14,7 +14,7 @@ const Users = (props) => {
       <tbody>
         {props.usersList.map((user) => {
           return (
-            <tr className="odd:bg-indigo-50">
+            <tr className="odd:bg-indigo-50" key={user.id}>
               <td className="border p-4">{user.name}</td>
               <td className="border p-4">{user.username}</td>
               <td className="border p-4">{user.email}</td>

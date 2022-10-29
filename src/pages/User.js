@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
+import List from "../components/List";
 const User = () => {
   const [user, setUser] = useState({});
   const [loader, setLoader] = useState(false);
@@ -14,39 +15,29 @@ const User = () => {
       .then((response) => {
         setLoader(false);
         setUser(response.data);
+        console.log("data: ", response.data);
       })
       .catch((error) => {
         setLoader(false);
-        console.log(error);
+        console.log("Error: ", error);
       });
   }, []);
   console.log(user);
+  console.log(loader);
   return (
     <div className="max-w-screen-lg mx-auto mt-5">
       {loader ? (
         <Spinner />
       ) : (
         <div>
-          <div>
-            <span className="capitalize text-base text-gray-500">name</span>
-            <h1 className="text-xl font-medium capitalize">{user.name}</h1>
-          </div>
-          <div className="mt-2">
-            <span className="capitalize text-base text-gray-500">username</span>
-            <h1 className="text-xl font-medium capitalize">{user.username}</h1>
-          </div>
-          <div className="mt-2">
-            <span className="capitalize text-base text-gray-500">email</span>
-            <h1 className="text-xl font-medium capitalize">{user.email}</h1>
-          </div>
-          <div className="mt-2">
-            <span className="capitalize text-base text-gray-500">phone</span>
-            <h1 className="text-xl font-medium capitalize">{user.phone}</h1>
-          </div>
-          <div className="mt-2">
-            <span className="capitalize text-base text-gray-500">website</span>
-            <h1 className="text-xl font-medium capitalize">{user.website}</h1>
-          </div>
+          <List label="name" value={user.name} />
+          <List label="username" value={user.username} />
+          <List label="email" value={user.email} />
+          <List label="phone" value={user.phone} />
+          <List label="website" value={user.website} />
+          <List label="street" value={user?.address?.street} ml="ml-3" />
+          <List label="city" value={user?.address?.city} ml="ml-3" />
+          <List label="zip code" value={user?.address?.zipcode} ml="ml-3" />
         </div>
       )}
     </div>
